@@ -1,0 +1,22 @@
+.container{
+    width:500px;
+    margin:50px auto;
+}
+
+.card{
+    background:white;
+    padding:10px;
+    margin:10px 0;
+}
+
+.accept{
+    background:green;
+    color:white;
+    padding:5px;
+}
+
+.refuse{
+    background:red;
+    color:white;
+    padding:5px;
+}

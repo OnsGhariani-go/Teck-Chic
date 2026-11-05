@@ -1,0 +1,164 @@
+/* --- CONFIGURATION GÉNÉRALE --- */
+:root {
+    --orange-chic: #ff6b35;
+    --vert-success: #2ecc71;
+    --vert-dark: #27ae60;
+    --gris-eteint: #555555;
+    --blanc-pur: #ffffff;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 40px;
+    min-height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), 
+                url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=2070&auto=format&fit=crop');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    color: var(--blanc-pur);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* --- CONTENEUR PRINCIPAL (Glassmorphism) --- */
+.tracking {
+    background: rgba(255, 255, 255, 0.05); 
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 40px;
+    padding: 40px;
+    width: 95%;
+    max-width: 500px;
+    text-align: center;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+}
+
+.tracking h2 {
+    background: var(--orange-chic);
+    color: white;
+    padding: 15px;
+    border-radius: 15px;
+    font-size: 1.2em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 40px;
+}
+
+/* --- TIMELINE (La ligne derrière) --- */
+.timeline {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    margin: 40px 0;
+    align-items: center;
+}
+
+.timeline::before {
+    content: "";
+    position: absolute;
+    top: 25px;
+    left: 10%;
+    width: 80%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    z-index: 0;
+}
+
+/* --- ÉTAPES & CERCLES --- */
+.step {
+    width: 33%;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.circle {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    background: var(--gris-eteint); /* Couleur par défaut quand c'est éteint */
+    color: white;
+    margin: 0 auto 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 3px solid rgba(255,255,255,0.1);
+}
+
+.step p {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.4s;
+}
+
+/* --- ÉTATS DYNAMIQUES (Gérés par le PHP) --- */
+
+/* Vert : Étape validée (Confirmé) */
+.confirmed-fix .circle {
+    background-color: var(--vert-dark) !important;
+    border-color: var(--vert-success) !important;
+    box-shadow: 0 0 15px rgba(46, 204, 113, 0.4);
+}
+.confirmed-fix p { color: white !important; }
+
+/* Orange : Étape actuelle (En cours) */
+.active-fix .circle {
+    background-color: var(--orange-chic) !important;
+    border-color: #ff9f43 !important;
+    box-shadow: 0 0 20px rgba(255, 107, 53, 0.6);
+    transform: scale(1.1);
+}
+.active-fix p { color: var(--orange-chic) !important; font-weight: bold; }
+
+/* Vert Brillant : Prêt */
+.ready-fix .circle {
+    background-color: var(--vert-success) !important;
+    border-color: white !important;
+    box-shadow: 0 0 25px rgba(46, 204, 113, 0.8);
+    animation: pulse-ready 2s infinite;
+}
+.ready-fix p { color: var(--vert-success) !important; font-weight: bold; }
+
+/* --- BOUTON ÉVALUATION --- */
+.evaluation-container {
+    margin-top: 40px;
+}
+
+.btn-eval {
+    padding: 15px 35px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 50px;
+    background: rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.3);
+    cursor: not-allowed;
+    transition: 0.4s;
+}
+
+/* Activé quand la commande est payée */
+.btn-eval.enabled {
+    background: var(--vert-dark) !important;
+    color: white !important;
+    cursor: pointer;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+.btn-eval.enabled:hover {
+    background: var(--vert-success) !important;
+    transform: translateY(-3px);
+}
+
+/* --- ANIMATIONS --- */
+@keyframes pulse-ready {
+    0% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.7); }
+    70% { box-shadow: 0 0 0 15px rgba(46, 204, 113, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0); }
+}
